@@ -53,8 +53,8 @@ $installer->addAttribute('catalog_product', 'pricemotion_lowest_price', array(
 $installer->addAttribute('catalog_product', 'pricemotion_price_difference', array(
 'backend'       => '',
 'frontend'      => '',
-'label'         => 'Price Difference',
-'input'         => 'text',
+'label'         => 'Price Difference (%)',
+'input'         => 'int',
 'class'         => '',
 'global'        => true,
 'visible'       => true,

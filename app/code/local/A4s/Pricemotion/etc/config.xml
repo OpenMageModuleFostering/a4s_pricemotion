@@ -2,7 +2,7 @@
 <config>
     <modules>
         <A4s_Pricemotion>
-            <version>0.2.16</version>
+            <version>0.2.17</version>
         </A4s_Pricemotion>
     </modules>
     <global>
@@ -144,7 +144,7 @@
             </pricemotion_send_messages>
             <pricemotion_set_prices>
                 <schedule>
-                    <cron_expr>30 */6 * * *</cron_expr>
+                    <cron_expr>30 */18 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>pricemotion/observer::setPrices</model>
@@ -152,7 +152,7 @@
             </pricemotion_set_prices>
             <pricemotion_update_attributes>
                 <schedule>
-                    <cron_expr>0 */6 * * *</cron_expr>
+                    <cron_expr>0 */18 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>pricemotion/observer::updateAttributes</model>

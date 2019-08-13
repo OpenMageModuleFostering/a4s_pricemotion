@@ -96,7 +96,7 @@ class A4s_Pricemotion_Model_Observer
                     } else {
                         $price = $product->getPrice();
                     }
-                    $difference = number_format((($price - $lowest_price) * 100) / $lowest_price, 2, ".", "") . "%";
+                    $difference = number_format((($price - $lowest_price) * 100) / $lowest_price, 2, ".", "");
                     Mage::log("Price: {$price}; Lowest price: {$lowest_price}; Difference: {$difference}", null, $log_file);
                     //if(self::$display_log) {
                     echo " Price: {$price}; Lowest price: {$lowest_price}; Difference: {$difference}\r\n";
