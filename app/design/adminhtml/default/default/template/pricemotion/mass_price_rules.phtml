@@ -27,6 +27,8 @@
     <div class="price-rule-box">
         <input type="radio" name="pricemotion[price_rules]" id="pm_top_enabled" value="<?php echo A4s_Pricemotion_Model_Rules::RULE_IN_TOP ?>" />
         <label for="pm_top_enabled"><?php echo $this->__('The price is always in top') ?></label>
+		<input type="radio" name="pricemotion[price_rules]" id="pm_top_enabled" value="<?php echo A4s_Pricemotion_Model_Rules::RULE_MATCH_TOP ?>" />
+        <label for="pm_top_enabled"><?php echo $this->__('The price is always matching number') ?></label>
         <input type="text" class="input-text" name="pricemotion[top]" id="pm_top" />&nbsp;
         <label for="pm_top"><?php echo $this->__('of lowest prices.') ?></label>
     </div>

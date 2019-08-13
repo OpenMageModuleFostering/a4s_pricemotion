@@ -121,6 +121,15 @@
                             <show_in_store>1</show_in_store>
                             <comment>Instead of changing the actual product price set this to Yes and PriceMotion will change the 'Special Price'.</comment>
                         </special_price>
+                        <escape_names translate="label">
+                            <label>Company names to be ignored</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>List the company names (seperated by a comma ',') as displayed in the Pricemotion tab on the 'Edit Product' page, that you do not want to include in the execution of your price rules.</comment>
+                        </escape_names>
                     </fields>
                 </default>
                 <emails translate="label comment" module="pricemotion">

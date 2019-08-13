@@ -78,6 +78,7 @@ class A4s_Pricemotion_Helper_Data extends Mage_Core_Helper_Abstract {
         return Mage::getStoreConfig('pricemotion_options/default/ean_att');
     }
 	
+	
     /**
      * Get the attributes in which the name is saved
      * @return string
@@ -150,6 +151,14 @@ class A4s_Pricemotion_Helper_Data extends Mage_Core_Helper_Abstract {
     }
     
     /**
+     * Get the attribute in which the company names that are to be escaped is saved
+     * @return string
+     */
+    public function getEscNames() {
+        return Mage::getStoreConfig('pricemotion_options/default/escape_names');
+    }
+    
+    /**
      * Get pricemotion information
      * @param Mage_Catalog_Model_Product $product
      * @return array
@@ -166,7 +175,7 @@ class A4s_Pricemotion_Helper_Data extends Mage_Core_Helper_Abstract {
 			//echo " |Request URL: " . $this->getServiceUrl() . self::SERIAL_URL . $this->getSerial() . self::EAN_URL . urlencode($ean) . "| ";
 		}
     		$xml_request = $this->getXml($ean);
-    	} elseif($name_att && ($pname = $product->getData($name_att))) {
+    	} elseif($name_att && ($pname = $product->getData($name_att)) && strlen($ean) > 8) {
 		if($display_log) {
                         //echo " |Request URL: " . $this->getServiceUrl() . self::NAME_TO_EAN_URL . self::SERIAL_URL . $this->getSerial() . self::NAME_URL . urlencode($pname) . "| ";
                 }
@@ -209,6 +218,12 @@ class A4s_Pricemotion_Helper_Data extends Mage_Core_Helper_Abstract {
     				    			'cleanPrice'=> number_format($price, 2, ".", "")
     				    		);
     				} else {
+                                    if($this->getEscNames()) {
+                                        $escs_array = array() + explode(',',$this->getEscNames());
+                                        if(in_array($price_item->seller, $escs_array)){
+                                            continue;
+                                        }                         
+                                    }          
     				    $return['prices'][] = number_format($price, 2, ".", "");
     				}
     			}
@@ -295,7 +310,7 @@ class A4s_Pricemotion_Helper_Data extends Mage_Core_Helper_Abstract {
 			if($response === false) {
 				$return['message'] = $this->__('Service not available') . ' (Error: E001a)';
 			} else {
-				$response_xml = simplexml_load_string($response);
+				$response_xml = simplexml_load_string(str_replace('&', '&amp;', $response));
 				
 	    		if($response_xml === false) {
 					$return['message'] = $this->__('Service not available') . ' (Error: E002) Response: ' . $response;

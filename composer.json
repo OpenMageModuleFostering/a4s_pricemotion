@@ -3,11 +3,11 @@
     "type": "magento-module",
     "license": "GNU-GPL-v3.0",
     "homepage": "",
-    "description": "Pricemotion is een prijsvergelijker voor webwinkeliers",
+    "description": "Pricemotion delivers the prices of Dutch competitors right in Magento. You do not have to through all those websites of your competitors anymore. ",
     "authors": [
     {
-        "name": "Sebastian Pruteanu",
-        "email": "sebi.pruteanu@gmail.com"
+        "name": "Heimen",
+        "email": "heimen@pricemotion.nl"
     }
 ],
     "suggest": {

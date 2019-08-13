@@ -77,9 +77,9 @@ class A4s_Pricemotion_Model_Observer
     {
         self::$coll_count = self::$coll_count + 1;
         $product = $args;
-        $log_file = "pricemotion_log" . date("Y-m-d") . ".log";
+        $log_file = "pricemotion_log_update_attributes_callback" . date("Y-m-d-h") . ".log";
         Mage::log('Loaded product ' . $product->getId(), null, $log_file);
-        if ($product->getStatus() != "1" && $product->getEnablePricemotion() != "1") {
+        if ($product->getStatus() != "1" || $product->getEnablePricemotion() != "1") {
             Mage::log('SKIPPED: product disabled', null, $log_file);
         } else {
             $pricemotion = Mage::helper('pricemotion')->getPricemotion($product, false, false, true);
@@ -128,7 +128,7 @@ class A4s_Pricemotion_Model_Observer
         if ($display_log) {
             self::$display_log = true;
         }
-        $log_file = "pricemotion_log" . date("Y-m-d") . ".log";
+        $log_file = "pricemotion_log_update_attributes" . date("Y-m-d-h") . ".log";
         Mage::log('Update attributes cron started', null, $log_file);
         $lowestprice_att = Mage::helper("pricemotion")->getLowestPriceAtt();
         $difference_att = Mage::helper("pricemotion")->getPriceDiffAtt();
@@ -199,7 +199,7 @@ class A4s_Pricemotion_Model_Observer
     {
         error_reporting(E_ALL);
         ini_set("display_errors", "On");
-        $log_file = "pricemotion_log" . date("Y-m-d") . ".log";
+        $log_file = "pricemotion_log_setprices" . date("Y-m-d-h") . ".log";
         echo 'Cron started\r\n';
         Mage::log('Cron started', null, $log_file);
 
@@ -543,19 +543,32 @@ class A4s_Pricemotion_Model_Observer
                         }
                         break;
                     case A4s_Pricemotion_Model_Rules::RULE_IN_TOP:
-                        echo 'Rule in top\r\n';
-                        Mage::log('Rule in top', null, $log_file);
+					case A4s_Pricemotion_Model_Rules::RULE_MATCH_TOP:
+						if ($rule->getStatus()==A4s_Pricemotion_Model_Rules::RULE_IN_TOP) {
+							echo 'Rule in top\r\n';
+							Mage::log('Rule in top', null, $log_file);
+						} else {
+							echo 'Rule match top\r\n';
+							Mage::log('Rule match top', null, $log_file);
+						}
                         //$cron_email .= "Rule 'in top'\r\n";
                         sort($pricemotion['prices']);
                         if (count($pricemotion['prices'])) {
                             $array_position = $rule->getInTopValue() - 1;
                             if (isset($pricemotion['prices'][$array_position])) {
                                 $top_price = $pricemotion['prices'][$array_position];
-                                $new_price = $top_price - 0.01;
+								if ($rule->getStatus()==A4s_Pricemotion_Model_Rules::RULE_IN_TOP) {
+									//We go below number x
+									$new_price = $top_price - 0.01;
+								} else { 
+									//We match the price
+									$new_price = $top_price; 
+								}
                                 if (Mage::helper('pricemotion')->isRoundedPrice()) {
                                     $new_price = floor($new_price);
                                 }
                             } else {
+								//Top is not big enough, make it 1 cent more expensive
                                 $top_price = end($pricemotion['prices']);
                                 $new_price = $top_price + 0.01;
                                 if (Mage::helper('pricemotion')->isRoundedPrice()) {
@@ -699,7 +712,7 @@ class A4s_Pricemotion_Model_Observer
                 $report_table_items[] = array(
                     "id" => $product->getId(),
                     "name" => $product->getName(),
-                    "error" => Mage::helper('pricemotion')->__('Pricemotion data could not loaded')
+                    "error" => Mage::helper('pricemotion')->__('')
                 );
             }
             //$cron_email .= "\r\n";
