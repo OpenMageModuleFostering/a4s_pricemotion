@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/A4s_Pricemotion",
+    "type": "magento-module",
+    "license": "GNU-GPL-v3.0",
+    "homepage": "",
+    "description": "Pricemotion is een prijsvergelijker voor webwinkeliers",
+    "authors": [
+    {
+        "name": "Sebastian Pruteanu",
+        "email": "sebi.pruteanu@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
