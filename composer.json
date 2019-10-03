@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/A4s_Pricemotion",
+    "name": "OpenMageModuleFostering\/A4s_Pricemotion",
     "type": "magento-module",
     "license": "GNU-GPL-v3.0",
     "homepage": "",
     "description": "Pricemotion delivers the prices of Dutch competitors right in Magento. You do not have to through all those websites of your competitors anymore. ",
     "authors": [
-    {
-        "name": "Heimen",
-        "email": "heimen@pricemotion.nl"
-    }
-],
+        {
+            "name": "Heimen",
+            "email": "heimen@pricemotion.nl"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
